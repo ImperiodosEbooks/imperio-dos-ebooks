@@ -13,13 +13,21 @@ header{background:#000;padding:20px;text-align:center;font-size:24px;font-weight
 .price{font-size:20px;margin:10px 0}
 button{background:#fff;color:#000;border:none;padding:10px 15px;border-radius:6px;cursor:pointer;font-weight:bold}
 button:hover{opacity:.85}
-.admin{margin-top:40px;background:#1a1a1a;padding:20px;border-radius:10px}
+.admin{margin-top:40px;background:#1a1a1a;padding:20px;border-radius:10px;display:none}
+.login{margin-top:40px;background:#1a1a1a;padding:20px;border-radius:10px}
 input,textarea{width:100%;padding:8px;margin-top:6px;margin-bottom:12px;border-radius:5px;border:none}
 </style>
 </head>
 <body><header>Império dos Ebooks</header><div class="container"><h2>Ebooks disponíveis</h2>
-<div id="products" class="grid"></div><div class="admin">
-<h2>Adicionar Produto (Admin)</h2><label>Título</label> <input id="title">
+<div id="products" class="grid"></div><div class="login" id="loginBox">
+<h2>Área do Administrador</h2><label>Email</label> <input id="adminEmail" placeholder="Digite seu email">
+
+<label>Senha</label> <input id="adminPass" type="password" placeholder="Digite a senha">
+
+<button onclick="loginAdmin()">Entrar</button>
+
+</div><div class="admin" id="adminPanel">
+<h2>Adicionar Produto</h2><label>Título</label> <input id="title">
 
 <label>Descrição</label>
 
@@ -32,6 +40,10 @@ input,textarea{width:100%;padding:8px;margin-top:6px;margin-bottom:12px;border-r
 <button onclick="addProduct()">Adicionar Produto</button>
 
 </div></div><script>
+
+const ADMIN_EMAIL = "lucasminecraft1107@gmail.com";
+const ADMIN_PASS = "nda2602ll";
+
 let products = JSON.parse(localStorage.getItem('ebooks') || '[]');
 
 function render(){
@@ -56,7 +68,22 @@ container.appendChild(div);
 });
 }
 
+function loginAdmin(){
+const email=document.getElementById('adminEmail').value;
+const pass=document.getElementById('adminPass').value;
+
+if(email===ADMIN_EMAIL && pass===ADMIN_PASS){
+
+ document.getElementById('loginBox').style.display='none';
+ document.getElementById('adminPanel').style.display='block';
+
+}else{
+ alert('Email ou senha incorretos');
+}
+}
+
 function addProduct(){
+
 const title=document.getElementById('title').value;
 const desc=document.getElementById('desc').value;
 const price=document.getElementById('price').value;
@@ -74,5 +101,6 @@ alert('Produto adicionado!');
 }
 
 render();
+
 </script></body>
-  </html>
+</html>
